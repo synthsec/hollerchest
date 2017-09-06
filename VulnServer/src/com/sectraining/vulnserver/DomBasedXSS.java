@@ -19,23 +19,24 @@ public class DomBasedXSS extends HttpServlet {
      */
     public DomBasedXSS() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		forwardToJsp(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private void forwardToJsp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		getServletConfig().getServletContext().getRequestDispatcher("/DomBasedXSS.jsp").forward(request, response);
 	}
 
 }

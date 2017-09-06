@@ -6,6 +6,38 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Fruit Selector</title>
 <script type="text/javascript">
+function displaySelectedFruit(fruit){
+	var selectedFruit = document.getElementById("selectedFruit");
+	selectedFruit.innerHTML = "<h2>Congratulations, you've selected a " + fruit + "!</h2><br><img src=\"images/"+fruit +".jpg\"/><h2>To share your fruit with your best friends, send them this link: "+document.location.href + "</h2>"
+}
+
+(function(fn){
+	if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+		fn();
+	} else {
+		document.addEventListener('DOMContentLoaded', fn);
+	}
+})(function(){
+	var fruitSelector = document.getElementById("fruitSelector");
+	fruitSelector.addEventListener("change", function(){
+		var fruit = fruitSelector.options[fruitSelector.selectedIndex].value;
+		displaySelectedFruit(fruit);
+	});	
+	
+	var searchParams = new URLSearchParams(document.location.search);
+	var selectedFruit = searchParams.get("fruit");
+	if(selectedFruit){
+		displaySelectedFruit(selectedFruit);
+		var opts = fruitSelector.options;
+		for(var opt in opts){
+			if(opts[opt].value === selectedFruit){
+				fruitSelector.selectedIndex = opt;
+				break;
+			}
+		}
+	}
+});
+
 
 </script>
 </head>
@@ -13,15 +45,14 @@
 <H2>Select your fruit!</H2>
 <div id="selectedFruit"></div>
 <form>
-		<select>
-		<option value="banana">Banana</option>
-		<option value="orange">Orange</option>
-		<option value="apple">Apple</option>
-		<option value="blueberry">Blueberry</option>
-		<option value="beef">Beef</option>
-		<option value="drywall">Drywall</option>
+		<select id="fruitSelector">
+			<option value="banana">Banana</option>
+			<option value="orange">Orange</option>
+			<option value="apple">Apple</option>
+			<option value="blueberry">Blueberry</option>
+			<option value="beef">Beef</option>
+			<option value="drywall">Drywall</option>
 		</select>
-	<input type="submit" value="Submit"></input>
 </form>
 </body>
 </html>
