@@ -21,11 +21,25 @@ public class StartupListener implements ServletContextListener {
 
 	}
 
-	private static String dropIfExists = "DROP TABLE IF EXISTS HOLLER;";
-	private static String createHoller = "CREATE TABLE HOLLER ("
+	// Persistent XSS Initialization 
+	private static String xssDropIfExists = "DROP TABLE IF EXISTS HOLLER;";
+	private static String xssCreateHoller = "CREATE TABLE HOLLER ("
 			+ "createTime DATETIME,"
 			+ "userName VARCHAR(30),"
 			+ "message VARCHAR(255));";
+	
+	// SQLi Initialization
+	private static String sqliDropIfExists = "DROP TABLE IF EXISTS SQLI_USERS;";
+	private static String sqliAddUserTable = "CREATE TABLE SQLI_USERS ("
+			+ "USERNAME VARCHAR(255),"
+			+ "PASSWORD VARCHAR(255));";
+	private static String sqliAddUserOne = "INSERT INTO SQLI_USERS(USERNAME, PASSWORD) "
+			+ "VALUES ('admin', 'password1');";
+	private static String sqliAddUserTwo = "INSERT INTO SQLI_USERS(USERNAME, PASSWORD) "
+			+ "VALUES ('user1', 'mydumbp4ssw0rd');";
+	private static String sqliAddUserThr = "INSERT INTO SQLI_USERS(USERNAME, PASSWORD) "
+			+ "VALUES ('user2', 'f47herkr4ng');";
+	
 	
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
@@ -38,8 +52,15 @@ public class StartupListener implements ServletContextListener {
 			
 			con = ds.getConnection();
 			stmt = con.createStatement();
-			stmt.executeUpdate(dropIfExists);
-			stmt.executeUpdate(createHoller);
+			
+			// Persistent XSS Initialization 
+			stmt.executeUpdate(xssDropIfExists);
+			stmt.executeUpdate(xssCreateHoller);
+			// SQLi Initialization
+			stmt.executeUpdate(sqliDropIfExists);
+			stmt.executeUpdate(sqliAddUserTable);
+			stmt.executeUpdate(sqliAddUserOne);
+		
 		} catch(Exception ex) {
 			System.out.println("Failed to create database");
 			ex.printStackTrace();

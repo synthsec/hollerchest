@@ -38,8 +38,6 @@ public class SqliDao {
 			
 		} catch( SQLException e) {
 			e.printStackTrace();
-		} catch( SQLSyntaxErrorException e) {
-			e.printStackTrace();
 		} catch(NamingException ne) {
 			ne.printStackTrace();
 		}finally {
