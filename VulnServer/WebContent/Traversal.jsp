@@ -17,7 +17,7 @@
         <option value="english">English</option>
         <option value="spanish">Spanish</option>
         <option value="esparanto">Esparanto</option>
-        <option value="java">Java</option>
+        <option value="nyanja">Nyanja</option>
      </select>
  <input type="submit"/> </form>
 
