@@ -8,7 +8,7 @@
 <script type="text/javascript">
 function displaySelectedFruit(fruit){
 	var selectedFruit = document.getElementById("selectedFruit");
-	selectedFruit.innerHTML = "<h2>Congratulations, you've selected a " + fruit + "!</h2><br><img src=\"images/"+fruit +".jpg\"/><h2>To share your fruit with your best friends, send them this link: "+document.location.href + "</h2>"
+	selectedFruit.innerHTML = "<h2>Congratulations, you've selected a " + fruit + "!</h2><br><img src=\"images/"+fruit +".jpg\"/><h2>To share your fruit with your best friends, send them this link: "+document.location.href.split('?')[0] + "?fruit=" + fruit + "</h2>"
 }
 
 (function(fn){
