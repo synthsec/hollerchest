@@ -37,19 +37,6 @@
          UserDatabaseRealm to authenticate users
     -->
     <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
- <Resource name="jdbc/vulndb" 
-      global="jdbc/vulndb" 
-      auth="Container" 
-      type="javax.sql.DataSource" 
-      driverClassName="org.mariadb.jdbc.Driver" 
-      url="jdbc:mariadb://localhost:3306/vulndb" 
-      username="vulnserver" 
-      password="vulnserver" 
-      
-      maxActive="100" 
-      maxIdle="20" 
-      minIdle="5" 
-      maxWait="10000"/>
   </GlobalNamingResources>
 
   <!-- A "Service" is a collection of one or more "Connectors" that share
