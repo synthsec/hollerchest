@@ -62,7 +62,7 @@ public class CommandInjection extends HttpServlet {
 	}
 	
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/CommandInjection.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/05_COMMANDI/CommandInjection.jsp").forward(request, response);
 	}
 
 }
