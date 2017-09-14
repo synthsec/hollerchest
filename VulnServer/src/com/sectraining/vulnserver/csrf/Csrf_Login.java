@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class PersistentXSS
  */
-@WebServlet("/Csrf_Login")
+@WebServlet("/03_CSRF/Csrf_Login")
 public class Csrf_Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;
