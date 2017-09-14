@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver.csrf;
+package com.sectraining.vulnserver.sqli;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

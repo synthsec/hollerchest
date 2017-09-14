@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.sectraining.vulnserver.csrf.UserProfile" %>
+<%@ page import="com.sectraining.vulnserver.sqli.UserProfile" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Csrf_Login</title>
+<title>Sqli_Logout</title>
 </head>
 <body>
 <h1>Login:</h1>
@@ -17,5 +17,10 @@
 <input type="submit"></input>
 </form>
 
+<%
+	UserProfile ussrr = (UserProfile)request.getAttribute("user");
+%>
+<b>User: <%=ussrr.getUsername()%></b>
+<b>Pass (if authenticated): <%=request.getSession().getAttribute("pass") %></b>
 </body>
 </html>

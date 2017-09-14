@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver.db;
+package com.sectraining.vulnserver.xss;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

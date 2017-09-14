@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.xss;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ReflectedXSSBlacklist
  */
-@WebServlet("/ReflectedXSSBlacklist")
+@WebServlet("/01_XSS/ReflectedXSSBlacklist")
 public class ReflectedXSSBlacklist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -180,7 +180,7 @@ public class ReflectedXSSBlacklist extends HttpServlet {
 		}else {
 			request.setAttribute("sanitizedQuery", query);
 		}
-		getServletConfig().getServletContext().getRequestDispatcher("/ReflectedXSSBlacklist.jsp").forward(request, response);
+		getServletConfig().getServletContext().getRequestDispatcher("/01_XSS/ReflectedXSSBlacklist.jsp").forward(request, response);
 	}
 	
 	private boolean checkBlacklist(String s) {

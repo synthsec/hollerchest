@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver.db;
+package com.sectraining.vulnserver.xss;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver.csrf;
+package com.sectraining.vulnserver.sqli;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class PersistentXSS
  */
-@WebServlet("/Csrf_Login")
-public class Csrf_Login extends HttpServlet {
+@WebServlet("/02_SQLI/Sqli_Authed")
+public class Sqli_Authed extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;
     private UserProfile user;
@@ -21,10 +21,10 @@ public class Csrf_Login extends HttpServlet {
     /**hollerDao
      * @see HttpServlet#HttpServlet()
      */
-    public Csrf_Login() {
+    public Sqli_Authed() {
         super();
-        user = new UserProfile();
         userDao = new UserProfileDao();
+        user = new UserProfile();
     }
 
 	/**
@@ -32,15 +32,12 @@ public class Csrf_Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("uid") != null)
+		if(session.getAttribute("uid") == null)
 		{
-			response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Authed");
+			response.sendRedirect(request.getContextPath() + "/02_SQLI/Sqli_Login");
 		}
 		else
 		{
-			user.setPassword(null);
-			user.setUsername(null);
 			forwardToJSP(request, response);
 		}
 	}
@@ -49,23 +46,30 @@ public class Csrf_Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserProfile authMeUser = new UserProfile(request.getParameter("user"), request.getParameter("password"));
+
+		user.setUsername(request.getParameter("user"));
+		user.setPassword(request.getParameter("password"));
+		user.setEmail(request.getParameter("email"));
+		user.setSsn(request.getParameter("ssn"));
+		user.setCcn(request.getParameter("ccn"));
+		
 		HttpSession session = request.getSession();
-		user = userDao.attemptLogin(authMeUser);
-		if(user.getUid() != 0) {
-			session.setAttribute("uid", user.getUid());
-			response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Authed");
-		}
-		else
-		{
-			forwardToJSP(request, response);
-		}
+		int uid = (int)session.getAttribute("uid");
+		user.setUid(uid);
+		userDao.updateUser(user);
+		
+		forwardToJSP(request, response);
 	}
 	
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
+		HttpSession session = request.getSession();
+		
+		int uid = (int)session.getAttribute("uid");
+		user = userDao.getUser(uid);
 		request.setAttribute("user", user);
-		getServletConfig().getServletContext().getRequestDispatcher("/03_CSRF/Csrf_Login.jsp").forward(request, response);
+		
+		getServletConfig().getServletContext().getRequestDispatcher("/02_SQLI/Sqli_Authed.jsp").forward(request, response);
 	}
 
 }

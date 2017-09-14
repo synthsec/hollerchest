@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.xss;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ReflectedXSS
  */
-@WebServlet(description = "A mock search engine vulnerable to Reflected Cross Site Scripting.", urlPatterns = { "/ReflectedXSS" })
+@WebServlet(description = "A mock search engine vulnerable to Reflected Cross Site Scripting.", urlPatterns = { "/01_XSS/ReflectedXSS" })
 public class ReflectedXSS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class ReflectedXSS extends HttpServlet {
 	
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
-		getServletConfig().getServletContext().getRequestDispatcher("/ReflectedXSS.jsp").forward(request, response);
+		getServletConfig().getServletContext().getRequestDispatcher("/01_XSS/ReflectedXSS.jsp").forward(request, response);
 	}
 
 }

@@ -1,23 +1,12 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.lfi;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.lang.Math;
-
-
-import com.sectraining.vulnserver.db.UserProfile;
-
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
-
-import com.sectraining.vulnserver.db.SqliDao;
 
 /**
  * Servlet implementation class PersistentXSS

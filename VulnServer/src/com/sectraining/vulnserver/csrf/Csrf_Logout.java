@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.csrf;
 
 import java.io.IOException;
 
@@ -9,13 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sectraining.vulnserver.db.CsrfDao;
-import com.sectraining.vulnserver.db.UserProfile;
-
 /**
  * Servlet implementation class PersistentXSS
  */
-@WebServlet("/Csrf_Logout")
+@WebServlet("/03_CSRF/Csrf_Logout")
 public class Csrf_Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -44,7 +41,7 @@ public class Csrf_Logout extends HttpServlet {
 		response.addHeader("X-XSS-Protection", "1");
 		HttpSession session = request.getSession();
 		session.invalidate();  
-		response.sendRedirect(request.getContextPath() + "/Csrf_Login");
+		response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Login");
 		// getServletConfig().getServletContext().getRequestDispatcher("/Csrf_Logout.jsp").forward(request, response);
 	}
 

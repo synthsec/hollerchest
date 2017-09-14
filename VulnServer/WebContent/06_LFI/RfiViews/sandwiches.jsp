@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.sectraining.vulnserver.db.UserProfile" %>
+<%@ page import="com.sectraining.vulnserver.sqli.UserProfile" %>
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
 <h2>Here are your sandwiches for today:</h2>
 <%

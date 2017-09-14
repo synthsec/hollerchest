@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.csrf;
 
 import java.io.IOException;
 
@@ -9,16 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sectraining.vulnserver.db.CsrfDao;
-import com.sectraining.vulnserver.db.UserProfile;
-
 /**
  * Servlet implementation class PersistentXSS
  */
-@WebServlet("/Csrf_Authed")
+@WebServlet("/03_CSRF/Csrf_Authed")
 public class Csrf_Authed extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private CsrfDao csrfDao;
+    private UserProfileDao userDao;
     private UserProfile user;
     
     /**hollerDao
@@ -26,7 +23,7 @@ public class Csrf_Authed extends HttpServlet {
      */
     public Csrf_Authed() {
         super();
-        csrfDao = new CsrfDao();
+        userDao = new UserProfileDao();
         user = new UserProfile();
     }
 
@@ -37,7 +34,7 @@ public class Csrf_Authed extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("uid") == null)
 		{
-			response.sendRedirect(request.getContextPath() + "/Csrf_Login");
+			response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Login");
 		}
 		else
 		{
@@ -59,7 +56,7 @@ public class Csrf_Authed extends HttpServlet {
 		HttpSession session = request.getSession();
 		int uid = (int)session.getAttribute("uid");
 		user.setUid(uid);
-		csrfDao.updateUser(user);
+		userDao.updateUser(user);
 		
 		forwardToJSP(request, response);
 	}
@@ -69,10 +66,10 @@ public class Csrf_Authed extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		int uid = (int)session.getAttribute("uid");
-		user = csrfDao.getUser(uid);
+		user = userDao.getUser(uid);
 		request.setAttribute("user", user);
 		
-		getServletConfig().getServletContext().getRequestDispatcher("/Csrf_Authed.jsp").forward(request, response);
+		getServletConfig().getServletContext().getRequestDispatcher("/03_CSRF/Csrf_Authed.jsp").forward(request, response);
 	}
 
 }

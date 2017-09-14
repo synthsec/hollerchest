@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.xss;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,13 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sectraining.vulnserver.db.Holler;
-import com.sectraining.vulnserver.db.HollerDao;
-
 /**
  * Servlet implementation class PersistentXSS
  */
-@WebServlet("/PersistentXSS")
+@WebServlet("/01_XSS/PersistentXSS")
 public class PersistentXSS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private HollerDao hollerDao;
@@ -49,7 +46,7 @@ public class PersistentXSS extends HttpServlet {
 		response.addHeader("X-XSS-Protection", "1");
 		List<Holler> hollers = hollerDao.getLatestHollers();
 		request.setAttribute("hollers", hollers);
-		getServletConfig().getServletContext().getRequestDispatcher("/PersistentXSS.jsp").forward(request, response);
+		getServletConfig().getServletContext().getRequestDispatcher("/01_XSS/PersistentXSS.jsp").forward(request, response);
 	}
 
 }

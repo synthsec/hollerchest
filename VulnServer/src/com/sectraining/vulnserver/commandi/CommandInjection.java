@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.commandi;
 
 import java.io.BufferedReader;
 import java.io.File;

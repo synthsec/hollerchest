@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver;
+package com.sectraining.vulnserver.xss;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class DomBasedXSS
  */
-@WebServlet("/DomBasedXSS")
+@WebServlet("/01_XSS/DomBasedXSS")
 public class DomBasedXSS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,7 +36,7 @@ public class DomBasedXSS extends HttpServlet {
 	}
 	
 	private void forwardToJsp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletConfig().getServletContext().getRequestDispatcher("/DomBasedXSS.jsp").forward(request, response);
+		getServletConfig().getServletContext().getRequestDispatcher("/01_XSS/DomBasedXSS.jsp").forward(request, response);
 	}
 
 }

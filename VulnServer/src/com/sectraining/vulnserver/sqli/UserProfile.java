@@ -1,4 +1,4 @@
-package com.sectraining.vulnserver.csrf;
+package com.sectraining.vulnserver.sqli;
 
 public class UserProfile {
 	private int uid;
