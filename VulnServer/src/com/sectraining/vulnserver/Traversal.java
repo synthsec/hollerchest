@@ -31,8 +31,8 @@ public class Traversal extends HttpServlet {
     public Traversal() {
         super();
         // TODO: this is dumb, make it something else.
-        workingDir = new String("/tmp/");
-        filename = new String("/tmp/english.txt");
+        workingDir = new String("/home/dev/hollerchest/VulnServer/WebContent/TraversalFiles/");
+        filename = new String("/home/dev/hollerchest/VulnServer/WebContent/TraversalFiles/english.txt");
         fileContents = new String("");
     }
 
@@ -40,7 +40,7 @@ public class Traversal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		filename = "/tmp/english.txt";
+		filename = "/home/dev/hollerchest/VulnServer/WebContent/TraversalFiles/english.txt";
 		forwardToJSP(request, response);
 	}
 
@@ -54,8 +54,8 @@ public class Traversal extends HttpServlet {
 		String lang = request.getParameter("language");
 		filename = lang.concat(".txt");
 		filename = workingDir.concat(filename);
-		// Filename can be a maximum for 40 characters long!
-		filename = filename.substring(0, Math.min(40, filename.length()));
+		// Filename can be a maximum for 121 characters long!
+		filename = filename.substring(0, Math.min(121, filename.length()));
 		forwardToJSP(request, response);
 	}
 	
