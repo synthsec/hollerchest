@@ -24,9 +24,13 @@
 
 <%
 	String url = (String)request.getAttribute("incl");
+
 %>
 
-<div><c:import url="<%=url%>"/></div>
+<div>
+<jsp:directive.include file="<%=url %>"/>
+<!--<jsp:include page="<%=url%>" flush="true"/>-->
+</div>
 
 </body>
 </html>

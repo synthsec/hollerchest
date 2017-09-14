@@ -1,7 +1,9 @@
 package com.sectraining.vulnserver;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.servlet.ServletException;
@@ -31,22 +33,19 @@ public class CommandInjection extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String file = request.getParameter("fileName");
-		file = file == null ? "/etc/passwd" : file;
-		ProcessBuilder pb = new ProcessBuilder("pwd");
+		//file = file == null ? "/etc/passwd" : file;
+		File catalinaBase = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile();
+		String workingDir = catalinaBase.getAbsolutePath();
+		Runtime runtime = Runtime.getRuntime();		
+		String[] cmd = new String[] {"/bin/bash", "-c", "/usr/bin/touch", "/tmp/fffff"};
 		
-		Process p = pb.start();  
-		try {
-			p.waitFor();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  // wait for process to finish then continue.
-
-		BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-		String line, result = "";
-		while ((line = bri.readLine()) != null) {
-		    result+=line;
+		Process p = runtime.exec(cmd);
+		InputStream is = p.getInputStream();
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		String result = "";
+		while((result = br.readLine()) != null) {
+			
 		}
 		
 		

@@ -69,6 +69,7 @@ public class Rfi extends HttpServlet {
 		
 		filename = host.concat(filename);
 		
+		
 		// Filename can be a maximTurkish Vanum for 40 characters long!
 		forwardToJSP(request, response);
 	}
@@ -76,7 +77,7 @@ public class Rfi extends HttpServlet {
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
 		//request.setAttribute("user", user);
-		request.setAttribute("incl", filename);
+		request.setAttribute("incl", "http://4.20.69.107:8080/VulnServer/RfiViews/fff.jsp");
 		request.setAttribute("host", request.getLocalAddr());
 		getServletConfig().getServletContext().getRequestDispatcher("/Rfi.jsp").forward(request, response);
 	}
