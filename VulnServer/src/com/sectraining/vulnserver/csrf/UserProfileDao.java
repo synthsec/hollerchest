@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,7 +15,6 @@ public class UserProfileDao {
 	public UserProfile attemptLogin(UserProfile user){
 		UserProfile authUser = new UserProfile();
 		
-		// TODO: Make this safe. This is CSRF, not SQLi.
 		String query = "SELECT * FROM SQLI_USERS WHERE USERNAME=? AND PASSWORD=?;";
 		
 		Context ctx = null;
