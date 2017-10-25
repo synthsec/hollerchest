@@ -4,15 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Read Some Files</title>
+<title>Word Finder</title>
 </head>
 <body>
-<form method="GET">
-<span>File: <input type="text" name="fileName"></input></span>
-<input type="submit"></input>
-</form>
-<p style="white-space: pre-wrap">
-<%=request.getAttribute("output")%>
-</p>
+    <h2>Find words containing:</h2>
+    <form action="/VulnServer/CommandInjection" method="post">
+        <input type="text" name="cmd" value="${cmd}"> </input>
+        <input type="submit" value="Search"></input>
+        <br /><br /><br />
+        <textarea cols="auto" rows="10" name="results" >${results} </textarea>
+    </form>
+
 </body>
 </html>
