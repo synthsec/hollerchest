@@ -14,9 +14,8 @@ public class UserProfileDao {
 		
 	public UserProfile attemptLogin(UserProfile user){
 		UserProfile authUser = new UserProfile();
-		
-		// TODO: Make this safe. This is CSRF, not SQLi.
-		String query = String.format("SELECT * FROM SQLI_USERS WHERE USERNAME='%s' AND PASSWORD='%s';", user.getUsername(), user.getPassword());
+
+		String query = String.format("SELECT * FROM SQLI_USERS WHERE USERNAME IN ('%s') AND PASSWORD IN ('%s');", user.getUsername(), user.getPassword());
 		
 		Context ctx = null;
 		Connection con = null;

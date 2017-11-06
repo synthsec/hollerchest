@@ -1,11 +1,7 @@
 package com.sectraining.vulnserver.commandi;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,25 +28,9 @@ public class CommandInjection extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String file = request.getParameter("fileName");
-		//file = file == null ? "/etc/passwd" : file;
-		File catalinaBase = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile();
-		String workingDir = catalinaBase.getAbsolutePath();
-		Runtime runtime = Runtime.getRuntime();		
-		String[] cmd = new String[] {"/bin/bash", "-c", "/usr/bin/touch", "/tmp/fffff"};
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		Process p = runtime.exec(cmd);
-		InputStream is = p.getInputStream();
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
-		String result = "";
-		while((result = br.readLine()) != null) {
-			
-		}
-		
-		
-		request.setAttribute("output", result);
-		forwardToJSP(request, response);
+		request.getRequestDispatcher("/05_COMMANDI/CommandInjection.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,11 +38,38 @@ public class CommandInjection extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String searchOutput = "";
+		String cmd = request.getParameter("cmd").toString();
+		
+		try { searchOutput = searchFile(cmd); }
+		catch (Exception e ) {
+			e.printStackTrace();
+		}		
+				
+        request.setAttribute("results", searchOutput);
+        request.getRequestDispatcher("/05_COMMANDI/CommandInjection.jsp").forward(request, response);
+        
 	}
 	
-	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/CommandInjection.jsp").forward(request, response);
-	}
+	  public String searchFile(String input) throws Exception {		    
+		    String output = "";
+		    String wordFile = getServletContext().getRealPath("/WEB-INF/words.txt");
+		    
+		  	Runtime rt = Runtime.getRuntime();
+		    Process proc = rt.exec(new String[] {"sh", "-c",  "grep -i " + input + " " + wordFile});
+		    int result = proc.waitFor();
+		    if (result != 0) {
+		      System.out.println("process error: " + result);
+		    }
+		    InputStream in = (result == 0) ? proc.getInputStream() :
+		                                     proc.getErrorStream();
+		    int c;
+		    while ((c = in.read()) != -1) {
+		      System.out.print((char) c);
+		      output +=(char) c;
+		    }
+		    return output;
+		  }
+
 
 }
