@@ -38,12 +38,12 @@ public class StartupListener implements ServletContextListener {
 			+ "SSN VARCHAR(255),"
 			+ "CCN VARCHAR(255));";
 
-	private static String sqliAddUserOne = "INSERT INTO SQLI_USERS(UID, USERNAME, PASSWORD, EMAIL, SSN, CCN) "
-			+ "VALUES (123, 'admin', 'password1', 'admin@internet.com', '352-10-6257', '4532654409131045');";
 	private static String sqliAddUserTwo = "INSERT INTO SQLI_USERS(UID, USERNAME, PASSWORD, EMAIL, SSN, CCN) "
 			+ "VALUES (666, 'user1', 'password2', 'user1@internet.com', '310-23-6765', '4539944435754586');";
 	private static String sqliAddUserThr = "INSERT INTO SQLI_USERS(UID, USERNAME, PASSWORD, EMAIL, SSN, CCN) "
 			+ "VALUES (420, 'user2', 'password3', 'user2@internet.com', '520-44-0278', '4916045792579088');";
+	private static String sqliAddUserOne = "INSERT INTO SQLI_USERS(UID, USERNAME, PASSWORD, EMAIL, SSN, CCN) "
+			+ "VALUES (123, 'administrator', 'password1', 'admin@internet.com', '352-10-6257', '4532654409131045');";
 	private static String sqliAddUserFou = "INSERT INTO SQLI_USERS(UID, USERNAME, PASSWORD, EMAIL, SSN, CCN) "
 			+ "VALUES (187, 'user3', 'password4', 'user3@internet.com', '504-60-7151', '4024007160709415');";
 	private static String sqliAddUserFiv = "INSERT INTO SQLI_USERS(UID, USERNAME, PASSWORD, EMAIL, SSN, CCN) "

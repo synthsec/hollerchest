@@ -2,6 +2,7 @@ package com.sectraining.vulnserver.traversal;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
@@ -10,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 /**
  * Servlet implementation class PersistentXSS
  */
-@WebServlet("/04_Traversal/Traversal")
+@WebServlet("/04_TRAVERSAL/Traversal")
 public class Traversal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private String workingDir; 
@@ -24,15 +27,15 @@ public class Traversal extends HttpServlet {
     public Traversal() {
         super();
         // TODO: this is dumb, make it something else.
-        workingDir = new String("/home/dev/hollerchest/VulnServer/WebContent/04_Traversal/TraversalFiles/");
-        filename = new String("/home/dev/hollerchest/VulnServer/WebContent/04_Traversal/TraversalFiles/english.txt");
+        workingDir = new String("/home/dev/hollerchest/VulnServer/WebContent/04_TRAVERSAL/TraversalFiles/");
+        filename = new String("/home/dev/hollerchest/VulnServer/WebContent/04_TRAVERSAL/TraversalFiles/english.txt");
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		filename = "/home/dev/hollerchest/VulnServer/WebContent/TraversalFiles/english.txt";
+		filename = "/home/dev/hollerchest/VulnServer/WebContent/04_TRAVERSAL/TraversalFiles/english.txt";
 		forwardToJSP(request, response);
 	}
 
@@ -46,18 +49,20 @@ public class Traversal extends HttpServlet {
 		String lang = request.getParameter("language");
 		filename = lang.concat(".txt");
 		filename = workingDir.concat(filename);
-		// Filename can be a maximum for 121 characters long!
-		filename = filename.substring(0, Math.min(121, filename.length()));
+		
+		// Filename can be a maximum for 123 characters long!
+		filename = filename.substring(0, Math.min(123, filename.length()));
 		forwardToJSP(request, response);
 	}
-	
+		
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
 		//request.setAttribute("user", user);
+
+		String fileContents = new String(Files.readAllBytes(Paths.get(filename)));
 		
-		String blah = new String(Files.readAllBytes(Paths.get(filename)));
-		request.setAttribute("blah", blah);
-		getServletConfig().getServletContext().getRequestDispatcher("/04_Traversal/Traversal.jsp").forward(request, response);
+		request.setAttribute("blah", fileContents);
+		getServletConfig().getServletContext().getRequestDispatcher("/04_TRAVERSAL/Traversal.jsp").forward(request, response);
 	}
 
 }
