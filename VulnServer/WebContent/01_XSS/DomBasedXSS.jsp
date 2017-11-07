@@ -5,10 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Fruit Selector</title>
+<script type="text/javascript" src="/VulnServer/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 function displaySelectedFruit(fruit){
 	var selectedFruit = document.getElementById("selectedFruit");
-	selectedFruit.innerHTML = "<h2>Congratulations, you've selected a " + fruit + "!</h2><br><img src=\"images/"+fruit +".jpg\"/><h2>To share your fruit with your best friends, send them this link: "+document.location.href.split('?')[0] + "?fruit=" + fruit + "</h2>"
+	$(selectedFruit)
+		.append($("<h2>").text("Congratulations, you've selected a " + fruit + "!")
+				.append($("<br>"))
+				.append($("<img>").attr("src", "images/" + fruit + ".jpg"))
+				.append($("<h2>").text("To share your fruit with your best friends, send them this link: " + document.location.href.split('?')[0] + "?fruit=" + fruit)));
 }
 
 (function(fn){
