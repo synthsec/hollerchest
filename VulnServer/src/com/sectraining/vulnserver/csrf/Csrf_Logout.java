@@ -42,7 +42,6 @@ public class Csrf_Logout extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();  
 		response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Login");
-		// getServletConfig().getServletContext().getRequestDispatcher("/Csrf_Logout.jsp").forward(request, response);
 	}
 
 }

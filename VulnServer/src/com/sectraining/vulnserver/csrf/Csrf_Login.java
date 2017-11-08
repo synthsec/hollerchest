@@ -16,14 +16,12 @@ import javax.servlet.http.HttpSession;
 public class Csrf_Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;
-    private UserProfile user;
     
     /**hollerDao
      * @see HttpServlet#HttpServlet()
      */
     public Csrf_Login() {
         super();
-        user = new UserProfile();
         userDao = new UserProfileDao();
     }
 
@@ -39,8 +37,6 @@ public class Csrf_Login extends HttpServlet {
 		}
 		else
 		{
-			user.setPassword(null);
-			user.setUsername(null);
 			forwardToJSP(request, response);
 		}
 	}
@@ -51,7 +47,7 @@ public class Csrf_Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserProfile authMeUser = new UserProfile(request.getParameter("user"), request.getParameter("password"));
 		HttpSession session = request.getSession();
-		user = userDao.attemptLogin(authMeUser);
+		UserProfile user = userDao.attemptLogin(authMeUser);
 		if(user.getUid() != 0) {
 			session.setAttribute("uid", user.getUid());
 			response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Authed");
@@ -64,7 +60,6 @@ public class Csrf_Login extends HttpServlet {
 	
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
-		request.setAttribute("user", user);
 		getServletConfig().getServletContext().getRequestDispatcher("/03_CSRF/Csrf_Login.jsp").forward(request, response);
 	}
 
