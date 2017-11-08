@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/01_XSS/PersistentXSS")
+@CourseContentLink(courseId=4, title = "Persistent XSS", section = "1.4")
 public class PersistentXSS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private HollerDao hollerDao;

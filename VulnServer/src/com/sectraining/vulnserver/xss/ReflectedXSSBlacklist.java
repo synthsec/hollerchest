@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class ReflectedXSSBlacklist
  */
 @WebServlet("/01_XSS/ReflectedXSSBlacklist")
+@CourseContentLink(courseId=2, title = "Reflected XSS with Blacklist", section = "1.2")
 public class ReflectedXSSBlacklist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

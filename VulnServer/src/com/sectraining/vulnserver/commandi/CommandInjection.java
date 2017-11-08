@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class CommandInjection
  */
 @WebServlet("/CommandInjection")
+@CourseContentLink(courseId=9, title = "Command Injection", section = "5.0")
 public class CommandInjection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

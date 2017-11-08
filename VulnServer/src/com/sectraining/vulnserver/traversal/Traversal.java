@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/04_TRAVERSAL/Traversal")
+@CourseContentLink(courseId=8, title = "File Traversal", section = "4.0")
+
 public class Traversal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private String workingDir; 

@@ -14,10 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class Decereal
  */
 @WebServlet("/Decereal")
+@CourseContentLink(courseId=10, title = "Deserialization", section = "6.0")
 public class Decereal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,7 +29,6 @@ public class Decereal extends HttpServlet {
      */
     public Decereal() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     
@@ -35,8 +37,6 @@ public class Decereal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
         foo f = new foo();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -50,21 +50,16 @@ public class Decereal extends HttpServlet {
         response.setContentType("text/html");
         request.setAttribute("message", "does this change");
         request.setAttribute("serializedobj", Base64.getEncoder().encodeToString(bytes));
-        request.getRequestDispatcher("/XX_DECEREAL/Decereal.jsp").forward(request, response);
+        request.getRequestDispatcher("/06_DECEREAL/Decereal.jsp").forward(request, response);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
         String serializedobjinb64 = request.getParameter("serializedobj").toString();
-        //serializedobjinb64 = java.net.URLDecoder.decode(serializedobjinb64, "UTF-8");
         
-        //response.getWriter().append(serializedobjinb64);
         byte[] bytes = Base64.getMimeDecoder().decode(serializedobjinb64.trim());
         
-        //response.getWriter().append(bytes.toString());
-        //byte[] decompressedbytes = decompress(compressedBytes);
 
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 
@@ -84,10 +79,8 @@ public class Decereal extends HttpServlet {
             response.setContentType("text/html");
             request.setAttribute("message", "does this change");
             request.setAttribute("serializedobj", Base64.getEncoder().encodeToString(bos.toByteArray()));
-            request.getRequestDispatcher("/XX_DECEREAL/Decereal.jsp").forward(request, response);
-	}
-        
-        
+            request.getRequestDispatcher("/06_DECEREAL/Decereal.jsp").forward(request, response);
+        }	    
 	}
 }
 

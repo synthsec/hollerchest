@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/02_SQLI/Sqli_Login")
+@CourseContentLink(courseId=6, title = "SQL Injection", section = "2.0")
 public class Sqli_Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;

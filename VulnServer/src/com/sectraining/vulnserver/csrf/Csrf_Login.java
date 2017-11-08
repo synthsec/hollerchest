@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sectraining.vulnserver.CourseContentLink;
+
 /**
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/03_CSRF/Csrf_Login")
+@CourseContentLink(courseId=7, title = "Cross Site Request Forgery", section = "3.0")
 public class Csrf_Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;
