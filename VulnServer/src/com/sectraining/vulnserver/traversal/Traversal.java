@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-
 /**
  * Servlet implementation class PersistentXSS
  */
@@ -58,8 +56,20 @@ public class Traversal extends HttpServlet {
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
 		//request.setAttribute("user", user);
-
-		String fileContents = new String(Files.readAllBytes(Paths.get(filename)));
+		
+		Path canonicalPath = Paths.get(filename).normalize();
+		Path workingPath = Paths.get(workingDir).normalize();
+		
+		// Is the working dir present at the beginning of the path?
+		String fileContents;
+		if (canonicalPath.startsWith(workingPath))
+		{
+			fileContents = new String(Files.readAllBytes(canonicalPath));
+		}
+		else
+		{
+			fileContents = "Oh no, directory traversal detected.";
+		}
 		
 		request.setAttribute("blah", fileContents);
 		getServletConfig().getServletContext().getRequestDispatcher("/04_TRAVERSAL/Traversal.jsp").forward(request, response);

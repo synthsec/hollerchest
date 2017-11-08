@@ -1,17 +1,25 @@
 package com.sectraining.vulnserver.commandi;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.ByteArrayOutputStream;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.PumpStreamHandler;
+
 /**
  * Servlet implementation class CommandInjection
  */
-@WebServlet("/CommandInjection")
+@WebServlet("/05_COMMANDI/CommandInjection")
 public class CommandInjection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,30 +53,44 @@ public class CommandInjection extends HttpServlet {
 		catch (Exception e ) {
 			e.printStackTrace();
 		}		
-				
+						
         request.setAttribute("results", searchOutput);
         request.getRequestDispatcher("/05_COMMANDI/CommandInjection.jsp").forward(request, response);
-        
 	}
 	
 	  public String searchFile(String input) throws Exception {		    
-		    String output = "";
-		    String wordFile = getServletContext().getRealPath("/WEB-INF/words.txt");
+		    String wordFile = new String("/home/dev/hollerchest/VulnServer/WebContent/WEB-INF/words.txt");
 		    
-		  	Runtime rt = Runtime.getRuntime();
-		    Process proc = rt.exec(new String[] {"sh", "-c",  "grep -i " + input + " " + wordFile});
-		    int result = proc.waitFor();
-		    if (result != 0) {
-		      System.out.println("process error: " + result);
-		    }
-		    InputStream in = (result == 0) ? proc.getInputStream() :
-		                                     proc.getErrorStream();
-		    int c;
-		    while ((c = in.read()) != -1) {
-		      System.out.print((char) c);
-		      output +=(char) c;
-		    }
-		    return output;
+		    // A Byte Array to capture the output stream.
+		    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		    PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+		    
+		    // Not strictly nessesary, but hey
+		    Map<String, String> map = new HashMap<String, String>();
+		    map.put("file", wordFile);
+		    map.put("userInput", input);
+		    
+		    // Build the command, piecemeal
+			CommandLine cl = new CommandLine("grep");
+			cl.addArgument("-i");
+			cl.addArgument("${userInput}");
+			cl.addArgument("${file}");
+			cl.setSubstitutionMap(map);
+			
+			// Instantiate and set up out executor
+			DefaultExecutor executor = new DefaultExecutor();
+			executor.setStreamHandler(streamHandler);
+			
+			// If the executor throws an exception, just print a
+			// generic error and move on...
+			try {
+				executor.execute(cl);
+			} catch (ExecuteException e) {
+				// Abort!
+				return new String("Oh no something went wrong.");
+			}
+			
+		    return outputStream.toString();		    
 		  }
 
 
