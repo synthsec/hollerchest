@@ -44,7 +44,12 @@ public class Csrf_Authed extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		if(!validateAntiForgeryToken(request)) {
+			request.setAttribute("forgedRequest", true);
+			forwardToJSP(request, response);
+			return;
+		}
+		
 		UserProfile user = new UserProfile();
 		user.setUsername(request.getParameter("user"));
 		user.setPassword(request.getParameter("password"));
@@ -58,6 +63,13 @@ public class Csrf_Authed extends HttpServlet {
 		userDao.updateUser(user);
 		
 		forwardToJSP(request, response);
+	}
+	
+	private boolean validateAntiForgeryToken(HttpServletRequest request) {
+		
+		String sessionToken = (String)request.getSession().getAttribute("antiForgeryToken");
+		String requestToken = request.getParameter("antiForgeryToken");
+		return (requestToken != null) && (sessionToken != null) && requestToken.equals(sessionToken);
 	}
 	
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

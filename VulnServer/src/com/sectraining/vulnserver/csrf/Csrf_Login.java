@@ -1,6 +1,9 @@
 package com.sectraining.vulnserver.csrf;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +53,7 @@ public class Csrf_Login extends HttpServlet {
 		UserProfile user = userDao.attemptLogin(authMeUser);
 		if(user.getUid() != 0) {
 			session.setAttribute("uid", user.getUid());
+			session.setAttribute("antiForgeryToken", generateCsrfToken());
 			response.sendRedirect(request.getContextPath() + "/03_CSRF/Csrf_Authed");
 		}
 		else
@@ -61,6 +65,13 @@ public class Csrf_Login extends HttpServlet {
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
 		getServletConfig().getServletContext().getRequestDispatcher("/03_CSRF/Csrf_Login.jsp").forward(request, response);
+	}
+	
+	private String generateCsrfToken() throws UnsupportedEncodingException {
+		byte[] bytes = new byte[64];
+		SecureRandom sr = new SecureRandom();
+		sr.nextBytes(bytes);
+		return Base64.getEncoder().encodeToString(bytes);
 	}
 
 }

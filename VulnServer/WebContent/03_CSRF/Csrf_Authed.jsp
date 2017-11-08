@@ -12,7 +12,16 @@
 
 <%
 	UserProfile ussrr = (UserProfile)request.getAttribute("user");
+	//It would be great if java had a null coalescing operator similar to C# here 
+	boolean forgedRequest = request.getAttribute("forgedRequest") != null ? (boolean)request.getAttribute("forgedRequest") : false;
+	if(forgedRequest){
+		%>
+		<h1 style="color: red">Forged Request Detected</h1>
+		
+		<% 
+	}
 %>
+
 
 <h1>User Details for user <%=ussrr.getUsername()%>:</h1>
 
@@ -22,6 +31,7 @@
 <H3>E-mail: <input type="text" name="email" value="<%=ussrr.getEmail()%>" ></input></H3>
 <H3>SSN: <input type="text" name="ssn" value="<%=ussrr.getSsn()%>" ></input></H3>
 <H3>CCN: <input type="text" name="ccn" value="<%=ussrr.getCcn()%>" ></input></H3>
+<input type="hidden" name="antiForgeryToken" value="<%=session.getAttribute("antiForgeryToken") %>"></input>
 <input type="submit"></input>
 </form>
 
