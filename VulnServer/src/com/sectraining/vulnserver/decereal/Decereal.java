@@ -19,7 +19,7 @@ import com.sectraining.vulnserver.CourseContentLink;
 /**
  * Servlet implementation class Decereal
  */
-@WebServlet("/Decereal")
+@WebServlet("/06_Decereal/Decereal")
 @CourseContentLink(courseId=10, title = "Deserialization", section = "6.0")
 public class Decereal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,11 +37,13 @@ public class Decereal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        foo f = new foo();
+        BenignSession session = new BenignSession();
+        session.dollars = 20;
+        session.name = "Bob";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
 
-        oos.writeObject(f);
+        oos.writeObject(session);
         oos.close();
 
 
@@ -65,16 +67,16 @@ public class Decereal extends HttpServlet {
 
         bis.close();
         ObjectInputStream ois = new ObjectInputStream(bis);
-        foo ownme = new foo();
+        BenignSession session = null;
 
         try {
-            ownme = (foo) ois.readObject();
+            session = (BenignSession) ois.readObject();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }finally {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(ownme);
+            oos.writeObject(session);
             oos.close();
             response.setContentType("text/html");
             request.setAttribute("message", "does this change");
@@ -82,15 +84,4 @@ public class Decereal extends HttpServlet {
             request.getRequestDispatcher("/06_DECEREAL/Decereal.jsp").forward(request, response);
         }	    
 	}
-}
-
-	
-
-class foo implements Serializable {
-    String state = "foo";
-    Integer one = 1;
-    double onepointtwo = 1.2;
-    public void bar(){
-        System.out.println("foobar");
-    }
 }
