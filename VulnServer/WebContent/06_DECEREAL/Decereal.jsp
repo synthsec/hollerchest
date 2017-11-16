@@ -7,9 +7,8 @@
 <title>Decereal</title>
 </head>
 <body>
-    <h2>Serialized object looks like this: ${serializedobj}</h2>
-    <form action="/VulnServer/06_Decereal/Decereal" method="post">
-        <input type="text" name="serializedobj" value="${serializedobj}" /> </input>
+    <h2>${sessionObject}</h2>
+    <form action="/VulnServer/06_Decereal/Decereal" method="get">
         <input type="submit">go</input>
     </form>
 </body>
