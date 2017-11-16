@@ -19,7 +19,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/04_TRAVERSAL/Traversal")
-@CourseContentLink(courseId=8, title = "File Traversal", section = "4.0")
+@CourseContentLink(courseId=8, title = "File Traversal", section = "5.1")
 
 public class Traversal extends HttpServlet {
 	private static final long serialVersionUID = 1L;

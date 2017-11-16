@@ -14,7 +14,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class CommandInjection
  */
 @WebServlet("/CommandInjection")
-@CourseContentLink(courseId=9, title = "Command Injection", section = "5.0")
+@CourseContentLink(courseId=9, title = "Command Injection", section = "6.1")
 public class CommandInjection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -20,7 +20,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class Decereal
  */
 @WebServlet("/06_Decereal/Decereal")
-@CourseContentLink(courseId=10, title = "Deserialization", section = "6.0")
+@CourseContentLink(courseId=10, title = "Deserialization", section = "7.1")
 public class Decereal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

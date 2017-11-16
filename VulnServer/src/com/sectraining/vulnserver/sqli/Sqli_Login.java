@@ -15,7 +15,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/02_SQLI/Sqli_Login")
-@CourseContentLink(courseId=6, title = "SQL Injection", section = "2.0")
+@CourseContentLink(courseId=6, title = "SQL Injection", section = "3.1")
 public class Sqli_Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;

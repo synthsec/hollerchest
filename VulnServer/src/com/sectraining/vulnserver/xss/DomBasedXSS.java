@@ -13,7 +13,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class DomBasedXSS
  */
 @WebServlet("/01_XSS/DomBasedXSS")
-@CourseContentLink(courseId=5, title = "Dom Based XSS", section = "1.5")
+@CourseContentLink(courseId=5, title = "Dom Based XSS", section = "2.7")
 public class DomBasedXSS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
