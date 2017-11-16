@@ -15,7 +15,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class PersistentXSS
  */
 @WebServlet("/03_CSRF/Csrf_Login")
-@CourseContentLink(courseId=7, title = "Cross Site Request Forgery", section = "3.0")
+@CourseContentLink(courseId=7, title = "Cross Site Request Forgery", section = "4.1")
 public class Csrf_Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserProfileDao userDao;

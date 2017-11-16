@@ -13,7 +13,7 @@ import com.sectraining.vulnserver.CourseContentLink;
  * Servlet implementation class ReflectedXSSClientMitigation
  */
 @WebServlet("/01_XSS/ReflectedXSSClientMitigation")
-@CourseContentLink(courseId=3, title = "Reflected XSS Client Mitigation", section = "1.3")
+@CourseContentLink(courseId=2, title = "Reflected XSS Client Mitigation", section = "2.2")
 public class ReflectedXSSClientMitigation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
