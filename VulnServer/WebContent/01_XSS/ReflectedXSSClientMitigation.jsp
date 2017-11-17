@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Generic Search Page</title>
-<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/VulnServer/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 function encodeData(){
 	$('#searchBox').val($('<div/>').text(document.getElementById("searchBox").value).html());
