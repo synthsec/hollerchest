@@ -47,9 +47,6 @@ public class Traversal extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//user.setUsername(request.getParameter("user"));
-		//user.setPassword(request.getParameter("password"));
-		//user = sqliDao.attemptLogin(user);
 		String lang = request.getParameter("language");
 		filename = lang.concat(".txt");
 		filename = workingDir.concat(filename);
@@ -61,11 +58,10 @@ public class Traversal extends HttpServlet {
 		
 	private void forwardToJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.addHeader("X-XSS-Protection", "1");
-		//request.setAttribute("user", user);
 
 		String fileContents = new String(Files.readAllBytes(Paths.get(filename)));
 		
-		request.setAttribute("blah", fileContents);
+		request.setAttribute("fileContents", fileContents);
 		getServletConfig().getServletContext().getRequestDispatcher("/04_TRAVERSAL/Traversal.jsp").forward(request, response);
 	}
 

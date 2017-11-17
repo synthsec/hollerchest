@@ -21,11 +21,7 @@
 
 <!-- add a second menu w client side checks and a value that gets appended to the filename -->
 
-<%
-	String foo = (String)request.getAttribute("blah");
-%>
-
-<p><%=foo%></p>
+<p>${requestScope.fileContents }</p>
 
 </body>
 </html>

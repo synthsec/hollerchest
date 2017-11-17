@@ -8,12 +8,11 @@
 </head>
 <body>
     <h2>Find words containing:</h2>
-    <form action="/VulnServer/CommandInjection" method="post">
+    <form action="/VulnServer/05_COMMANDI/CommandInjection" method="post">
         <input type="text" name="cmd" value="${cmd}"> </input>
         <input type="submit" value="Search"></input>
         <br /><br /><br />
         <textarea cols="auto" rows="10" name="results" >${results} </textarea>
     </form>
-
 </body>
 </html>

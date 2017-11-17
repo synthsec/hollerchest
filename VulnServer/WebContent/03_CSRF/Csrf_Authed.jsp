@@ -10,18 +10,14 @@
 </head>
 <body>
 
-<%
-	UserProfile ussrr = (UserProfile)request.getAttribute("user");
-%>
-
-<h1>User Details for user <%=ussrr.getUsername()%>:</h1>
+<h1>User Details for user ${requestScope.user.getUsername()}:</h1>
 
 <form method="POST">
-<H3>Username: <input type="text" name="user" value="<%=ussrr.getUsername()%>"></input></H3>
-<H3>Password: <input type="text" name="password" value="<%=ussrr.getPassword()%>" ></input></H3>
-<H3>E-mail: <input type="text" name="email" value="<%=ussrr.getEmail()%>" ></input></H3>
-<H3>SSN: <input type="text" name="ssn" value="<%=ussrr.getSsn()%>" ></input></H3>
-<H3>CCN: <input type="text" name="ccn" value="<%=ussrr.getCcn()%>" ></input></H3>
+<H3>Username: <input type="text" name="user" value="${requestScope.user.getUsername()}"></input></H3>
+<H3>Password: <input type="text" name="password" value="${requestScope.user.getPassword()}" ></input></H3>
+<H3>E-mail: <input type="text" name="email" value="${requestScope.user.getEmail()}" ></input></H3>
+<H3>SSN: <input type="text" name="ssn" value="${requestScope.user.getSsn()}" ></input></H3>
+<H3>CCN: <input type="text" name="ccn" value="${requestScope.user.getCcn()}" ></input></H3>
 <input type="submit"></input>
 </form>
 

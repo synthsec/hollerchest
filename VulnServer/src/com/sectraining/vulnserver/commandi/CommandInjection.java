@@ -13,7 +13,7 @@ import com.sectraining.vulnserver.CourseContentLink;
 /**
  * Servlet implementation class CommandInjection
  */
-@WebServlet("/CommandInjection")
+@WebServlet("/05_COMMANDI/CommandInjection")
 @CourseContentLink(courseId=9, title = "Command Injection", section = "6.1")
 public class CommandInjection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,25 +54,24 @@ public class CommandInjection extends HttpServlet {
         
 	}
 	
-	  public String searchFile(String input) throws Exception {		    
-		    String output = "";
-		    String wordFile = getServletContext().getRealPath("/WEB-INF/words.txt");
-		    
-		  	Runtime rt = Runtime.getRuntime();
-		    Process proc = rt.exec(new String[] {"sh", "-c",  "grep -i " + input + " " + wordFile});
-		    int result = proc.waitFor();
-		    if (result != 0) {
-		      System.out.println("process error: " + result);
-		    }
-		    InputStream in = (result == 0) ? proc.getInputStream() :
-		                                     proc.getErrorStream();
-		    int c;
-		    while ((c = in.read()) != -1) {
-		      System.out.print((char) c);
-		      output +=(char) c;
-		    }
-		    return output;
-		  }
-
-
+	public String searchFile(String input) throws Exception {		    
+		String output = "";
+		String wordFile = getServletContext().getRealPath("/WEB-INF/words.txt");
+		
+		Runtime rt = Runtime.getRuntime();
+		Process proc = rt.exec(new String[] {"sh", "-c",  "grep -i " + input + " " + wordFile});
+		int result = proc.waitFor();
+		if (result != 0) {
+			System.out.println("process error: " + result);
+		}
+		
+		InputStream in = (result == 0) ? proc.getInputStream() :
+		                                 proc.getErrorStream();
+		int c;
+		while ((c = in.read()) != -1) {
+			System.out.print((char) c);
+			output +=(char) c;
+		}
+		return output;  
+	}
 }

@@ -19,17 +19,15 @@
 </form>
 
 <H2>Latest Hollers:</H2>
-<% 
-List<Holler> hollers = (List<Holler>)request.getAttribute("hollers");
-for(Holler holler : hollers){
-%>
-<div>
-<b>User: <%=holler.getUser()%></b>
-<b>Message:<%= holler.getMessage()%></b>
-<b>Time: <%=holler.getFormattedCreateTime()%></b>
-</div>
-<% 
-}
-%>
+
+<c:forEach items="${requestScope.hollers}" var="holler">
+	<div>
+		<b>User: ${holler.getUser()}</b>
+		<b>Message:${holler.getMessage()}</b>
+		<b>Time: ${holler.getFormattedCreateTime()}</b>
+	</div>
+</c:forEach>
+
+
 </body>
 </html>

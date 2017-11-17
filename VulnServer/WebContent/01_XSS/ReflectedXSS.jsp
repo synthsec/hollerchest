@@ -13,16 +13,8 @@
 	<input type="text" name="query" value=""></input>
 	<input type="submit" value="Submit"></input>
 </form>
-<c:if test="${request.getParameter != null && !query.trim().equals()}">
+<c:if test="${not empty param.query }">
+<H2>Your search for: ${param.query}  returned no results</H2>
 </c:if>
-<%
-	String query = request.getParameter("query");
-	if(query != null &&  !query.trim().equals("")){
-		pageContext.setAttribute("query", query);
-%> 
-<H2>Your search for: <c:out value="${query}" />  returned no results</H2>
-<%
-	}
-%>
 </body>
 </html>

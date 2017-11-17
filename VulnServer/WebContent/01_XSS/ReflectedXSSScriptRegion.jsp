@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %> 
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,13 +8,20 @@
 <title>Generic Search Page</title>
 </head>
 <body>
-<H2>Search</H2>
+<H2>Look up item by integer id:</H2>
 <form method="GET">
-	<input type="text" name="query" value=""></input>
+	<input type="text" name="querya" value=""></input>
 	<input type="submit" value="Submit"></input>
 </form>
-<c:if test="${not empty requestScope.sanitizedQuery}">
-<H2>Your search for: <%=request.getAttribute("sanitizedQuery") %> returned no results</H2>
+<c:if test="${not empty param.query }">
+<script>
+(function(){
+	var query = <c:out value="${param.query}"/>;
+	var message = document.createElement("h2");
+	message.appendChild(document.createTextNode("lookup for item: " + query + " returned no results"));
+	document.body.appendChild(message);
+})();
+</script>
 </c:if>
 </body>
 </html>
